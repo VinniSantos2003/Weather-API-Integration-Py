@@ -11,4 +11,6 @@ from main_screen import Screen
 6- Refatorar os código e deixar a maior parte deles fora do main_screen.py e salvar somente o retorno de funções
 
 """
+
+#Adicionar um frame para mostrar as temperaturas na tela e não quebrar o resto da tela, ou abrir uma tela separada mostrando os dados
 Screen()

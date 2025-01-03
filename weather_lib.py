@@ -1,6 +1,8 @@
 import json
 import requests
 import openmeteo_requests
+from numpy.f2py.auxfuncs import throw_error
+
 
 def fetchLocation(place : str):
     #Nomes compostos precisam ser tratados,o caracter " " precisa ser trocado por "+"
@@ -8,18 +10,21 @@ def fetchLocation(place : str):
     res = requests.get(f"https://geocoding-api.open-meteo.com/v1/search?name={place}&count=1&language=en&format=json")
     jsonData = json.loads(res.text)
     coordenadas = [jsonData['results'][0]['latitude'],jsonData['results'][0]['longitude']]
-    return weatherDailyParams(coordenadas)
+    return coordenadas
 
 
-def weatherDailyParams(place:list):
+def weatherDailyParams(place:list,days: int):
     #days = int(input("Quantidade de dias: "))
-    params = {
+        params = {
             "latitude": place[0],
             "longitude": place[1],
             "daily": ["temperature_2m_max", "temperature_2m_min", "sunrise", "sunset"],
-            "forecast_days": 3
+            "forecast_days": days
             }
-    return params
+        return params
+
+
+
 
 def resquestData(parametros:str):
     cliente = openmeteo_requests.Client()
